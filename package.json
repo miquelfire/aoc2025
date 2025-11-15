@@ -1,0 +1,30 @@
+{
+  "name": "aoc_2025",
+  "version": "1.0.0",
+  "description": "Just a repo for holding my work for Advent of Code 2024",
+  "homepage": "https://github.com/miquelfire/aoc2025#readme",
+  "bugs": {
+    "url": "https://github.com/miquelfire/aoc2025/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miquelfire/aoc2025.git"
+  },
+  "license": "MIT",
+  "author": "Miquel \"Fire\" Burns <miquelfire@gmail.com> (https://miquelfire.red/)",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node index.ts",
+    "lint": "eslint .",
+    "lintfix": "eslint . --fix",
+    "createDay": "node createDay.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "typescript-eslint": "^8.46.4"
+  }
+}
