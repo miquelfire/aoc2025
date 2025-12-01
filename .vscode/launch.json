@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"runtimeArgs": ["--preserve-symlinks-main", "--preserve-symlinks"],
+			"runtimeArgs": ["--preserve-symlinks-main", "--preserve-symlinks", "--env-file-if-exists=.env"],
 			"program": "${workspaceFolder}\\index.ts"
 		}
 	]

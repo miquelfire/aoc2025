@@ -21,4 +21,8 @@ import { run } from './runner.ts';
 // the argument for maxDay is optional, remove it for no limit
 // runner.getDay(5).then((day) => runner.run(day))
 
-await run(0);
+if (process.env.day) {
+	await run(+process.env.day);
+} else {
+	await run(0);
+}
