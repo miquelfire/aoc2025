@@ -54,8 +54,5 @@ export const part2 = async (d: string) => {
 		}
 	});
 
-	// 5876 too low...
-	// 6997 Too high
-
 	return count;
 };
