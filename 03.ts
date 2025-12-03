@@ -1,14 +1,14 @@
 export const part1 = async (d: string) => {
 	const data = d.split('\n').map(e => e.split('').map(e => +e));
 	let sum = 0;
-	data.forEach(batteries => {
-		const maxValues = [batteries[0], batteries[1]];
-		for (let battery = 1; battery < batteries.length; battery++) {
-			if (batteries[battery] > maxValues[0] && battery < batteries.length - 1) {
-				maxValues[0] = batteries[battery];
-				maxValues[1] = batteries[battery + 1];
-			} else if (batteries[battery] > maxValues[1]) {
-				maxValues[1] = batteries[battery];
+	data.forEach(pack => {
+		const maxValues = [pack[0], pack[1]];
+		for (let battery = 1; battery < pack.length; battery++) {
+			if (pack[battery] > maxValues[0] && battery < pack.length - 1) {
+				maxValues[0] = pack[battery];
+				maxValues[1] = pack[battery + 1];
+			} else if (pack[battery] > maxValues[1]) {
+				maxValues[1] = pack[battery];
 			}
 		}
 		sum += +(maxValues.join(''));
@@ -17,7 +17,25 @@ export const part1 = async (d: string) => {
 };
 
 export const part2 = async (d: string) => {
-	const data = d.split('\n');
-	data.splice(0, data.length);
-	return data;
+	const data = d.split('\n').map(e => e.split('').map(e => BigInt(e)));
+	let sum = 0n;
+	data.forEach(pack => {
+		const maxValues = [];
+		let start = 0;
+		for (let i = 0; i < 12; i++) {
+			maxValues.push(pack[start]);
+			start++;
+			const end = pack.length - (11 - i);
+			for (let k = start; k < end; k++) {
+				if (pack[k] > maxValues[i]) {
+					maxValues[i] = pack[k];
+					start = k + 1;
+				}
+			}
+
+		}
+
+		sum += BigInt(maxValues.join(''));
+	});
+	return sum.toString();
 };
