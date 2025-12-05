@@ -17,7 +17,25 @@ export const part1 = async (d: string) => {
 };
 
 export const part2 = async (d: string) => {
-	const data = d.split('\n');
-	data.splice(0, data.length);
-	return data;
+	const ranges = d.split('\n\n')[0].split('\n').map(e => e.split('-').map(e => BigInt(e)));
+	const simpleRanges: bigint[][] = [];
+
+	ranges.sort((a, b) => Number(a[0] - b[0]));
+	let previous = ranges[0];
+	simpleRanges.push(previous);
+
+	for (let i = 1; i < ranges.length; i++) {
+		const current = ranges[i];
+		if (previous[1] >= current[0]) {
+			previous[1] = previous[1] > current[1] ? previous[1] : current[1];
+		} else {
+			simpleRanges.push(current);
+			previous = current;
+		}
+	}
+	let result = 0n;
+	simpleRanges.forEach(range => {
+		result += range[1] - range[0] + 1n;
+	});
+	return result.toString();
 };
