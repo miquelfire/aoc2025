@@ -18,7 +18,7 @@ export const part1 = async (d: string) => {
 
 export const part2 = async (d: string) => {
 	const data = d.split('\n').map(e => e.split(''));
-	const commands = data.pop().join('').trim().split(/ +/).reverse();
+	const commands = data.pop().filter(e => e != ' ').reverse();
 	let sum = 0n;
 	let subTotal = (commands[0] == '+') ? 0n : 1n;
 	const rotatedData = data[0].map((val, index) => data.map(row => row[row.length-1-index]).join('').trim());
