@@ -4,5 +4,5 @@ export const part1 = async (d: string) => {
 };
 
 export const part2 = async (d: string) => {
-	return d;
+	return null;
 };
