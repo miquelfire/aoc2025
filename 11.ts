@@ -1,4 +1,7 @@
+import { memoize } from './utils.ts';
+
 export const part1 = async (d: string) => {
+	return null;// Until I get back to my input
 	const devices = d.split('\n').map(e => e.split(': '));
 	const deviceMap = new Map<string, string[]>();
 	const devicePathCount = new Map<string, number>();
@@ -41,7 +44,46 @@ export const part1 = async (d: string) => {
 };
 
 export const part2 = async (d: string) => {
-	const data = d.split('\n');
-	data.splice(0, data.length);
-	return data;
+	const devices = d.split('\n').map(e => e.split(': '));
+	const deviceMap = new Map<string, string[]>();
+	for (const device of devices) {
+		const deviceId = device[0];
+		const paths = device[1].split(' ');
+		deviceMap.set(deviceId, paths);
+	}
+
+	type travelPathReturn = { hasDAC: boolean, hasFFT: boolean, count: bigint };
+	const travelValidPaths = (device: string): travelPathReturn|null => {
+		const validPaths: travelPathReturn[] = [];
+		const paths = deviceMap.get(device);
+		let foundDAC = false;
+		let foundFFT = false;
+		for (const subPath of paths) {
+			if (subPath == 'out') {
+				validPaths.push({ hasDAC: false, hasFFT: false, count: 1n });
+				break;
+			}
+			const checkPath = memoizedTravelValidPaths(subPath);
+			if (!checkPath) {
+				continue;
+			}
+
+			// prefer paths with DAC or FFT device
+			if (checkPath.hasDAC != foundDAC && foundDAC == false) {
+				foundDAC = true;
+				validPaths.splice(0, validPaths.length);
+			}
+			if (checkPath.hasFFT != foundFFT && foundFFT == false) {
+				foundFFT = true;
+				validPaths.splice(0, validPaths.length);
+			}
+			if (checkPath.hasDAC == foundDAC && checkPath.hasFFT == foundFFT) {
+				validPaths.push(checkPath);
+			}
+		}
+		return {hasDAC: (device == 'dac') || foundDAC, hasFFT: (device == 'fft') || foundFFT, count: validPaths.reduce((p, v) => p + v.count, 0n)};
+	};
+	const memoizedTravelValidPaths = memoize(travelValidPaths);
+
+	return memoizedTravelValidPaths('svr').count.toString();
 };
