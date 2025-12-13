@@ -1,7 +1,6 @@
 import { memoize } from './utils.ts';
 
 export const part1 = async (d: string) => {
-	return null;// Until I get back to my input
 	const devices = d.split('\n').map(e => e.split(': '));
 	const deviceMap = new Map<string, string[]>();
 	const devicePathCount = new Map<string, number>();
