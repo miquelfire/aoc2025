@@ -143,3 +143,19 @@ export function memoize<T extends AnyFunction>(fn: T): MemoizedFunction<T> {
 
 	return memoizedFunction;
 }
+
+export function getCombinations<T> (array: T[]): T[] {
+	const result = [];
+	const total = Math.pow(2, array.length);
+
+	for (let i = 1; i < total; i++) {
+		const comb = [];
+		for (let j = 0; j < array.length; j++) {
+			if (i & (1 << j)) {
+				comb.push(array[j]);
+			}
+		}
+		result.push(comb);
+	}
+	return result;
+}
