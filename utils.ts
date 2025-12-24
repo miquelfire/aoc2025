@@ -144,7 +144,7 @@ export function memoize<T extends AnyFunction>(fn: T): MemoizedFunction<T> {
 	return memoizedFunction;
 }
 
-export function getCombinations<T> (array: T[]): T[] {
+export function getCombinations<T> (array: T[]): T[][] {
 	const result = [];
 	const total = Math.pow(2, array.length);
 
